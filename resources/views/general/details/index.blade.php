@@ -30,8 +30,8 @@
           <thead>
           <tr>
             <th>No</th>
+            <th>Periode</th>
             <th>File Name</th>
-            <th>Uploaded At</th>
             <th>Uploaded By</th>
             <th>action</th>
           </tr>
@@ -58,6 +58,10 @@
       <form action="{{ route('general.upload', $category->id) }}" enctype="multipart/form-data" method="POST">
         @csrf
       <div class="modal-body">
+        <div class="form-group">
+          <label for="month">Periode</label>
+          <input name="month" type="month" class="form-control" id="month" autofocus required>
+        </div>
           <label>Choose file to upload</label>
           <div class="form-group">
             <input type="file" name='file_upload' accept="application/pdf required class="form-control">
@@ -103,8 +107,8 @@
         ajax: '{{ route('general.detail.data', $category->id) }}',
         columns: [
           {data: 'DT_RowIndex', orderable: false, searchable: false},
+          {data: 'month'},
           {data: 'filename'},
-          {data: 'created_at'},
           {data: 'created_by'},
           {data: 'action'},
         ],

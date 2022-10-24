@@ -84,12 +84,16 @@ class GeneralController extends Controller
     public function general_detail_data($category_id)
     {
         $general_details = CategoryDetail::where('category_id', $category_id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('month', 'desc')
             ->get();
 
         return datatables()->of($general_details)
-            ->editColumn('created_at', function ($general_details) {
-                return date('d-m-Y H:i:s', strtotime('+8 hours', strtotime($general_details->created_at)));
+            ->editColumn('month', function ($gs_details) {
+                if ($gs_details->month) {
+                    return date('M-Y', strtotime($gs_details->month));
+                } else {
+                    return '-';
+                }
             })
             ->addIndexColumn()
             ->addColumn('action', 'general.details.action')
