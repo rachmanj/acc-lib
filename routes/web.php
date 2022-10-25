@@ -37,13 +37,17 @@ Route::middleware('auth')->group(function () {
     Route::get('categories/data', [CategoryController::class, 'data'])->name('categories.index.data');
     Route::resource('categories', CategoryController::class);
 
-    Route::get('gs/data', [GsController::class, 'data'])->name('gs.index.data');
-    Route::get('gs/{category_id}/data', [GsController::class, 'gs_detail_data'])->name('gs.detail.data');
-    Route::post('gs/{category_id}/upload', [GsController::class, 'upload'])->name('gs.upload');
-    Route::get('gs', [GsController::class, 'index'])->name('gs.index');
-    Route::get('gs/{category_id}', [GsController::class, 'show'])->name('gs.show');
-    Route::delete('gs/{id}', [GsController::class, 'destroy'])->name('gs.detail.destroy');
-    Route::get('gs/{id}/preview', [GsController::class, 'preview'])->name('gs.detail.preview');
+    Route::prefix('gs')->name('gs.')->group(function () {
+        Route::get('/data', [GsController::class, 'data'])->name('index.data');
+        Route::get('/{category_id}/data', [GsController::class, 'gs_detail_data'])->name('detail.data');
+        Route::post('/{category_id}/upload', [GsController::class, 'upload'])->name('upload');
+        Route::get('/', [GsController::class, 'index'])->name('index');
+        Route::post('/', [GsController::class, 'store'])->name('store');
+        Route::get('/create', [GsController::class, 'create'])->name('create');
+        Route::get('/{category_id}', [GsController::class, 'show'])->name('show');
+        Route::delete('/{id}', [GsController::class, 'destroy'])->name('detail.destroy');
+        Route::get('/{id}/preview', [GsController::class, 'preview'])->name('detail.preview');
+    });
 
     Route::prefix('general')->name('general.')->group(function () {
         Route::get('/data', [GeneralController::class, 'data'])->name('index.data');

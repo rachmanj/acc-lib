@@ -13,6 +13,26 @@ class GsController extends Controller
         return view('gs.index');
     }
 
+    public function create()
+    {
+        return view('gs.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $category = Category::create([
+            'name' => $request->name,
+            'type' => 'gs',
+            'created_by' => auth()->user()->username,
+        ]);
+
+        return redirect()->route('gs.index')->with('success', 'New GS Doc Category created successfully.');
+    }
+
     public function show($category_id)
     {
         // return $category_id;

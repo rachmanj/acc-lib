@@ -20,7 +20,7 @@
             {{ Session::get('success') }}
           </div>
         @endif
-        {{-- <a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>  Category</a> --}}
+        <a href="{{ route('gs.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> GS Category</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
