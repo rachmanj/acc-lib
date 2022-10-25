@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/data', [GsController::class, 'data'])->name('index.data');
         Route::get('/{category_id}/data', [GsController::class, 'gs_detail_data'])->name('detail.data');
         Route::post('/{category_id}/upload', [GsController::class, 'upload'])->name('upload');
+        Route::put('/{categoryDetail_id}/update', [GsController::class, 'update'])->name('update');
         Route::get('/', [GsController::class, 'index'])->name('index');
         Route::post('/', [GsController::class, 'store'])->name('store');
         Route::get('/create', [GsController::class, 'create'])->name('create');
@@ -53,6 +54,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/data', [GeneralController::class, 'data'])->name('index.data');
         Route::get('/{category_id}/data', [GeneralController::class, 'general_detail_data'])->name('detail.data');
         Route::post('/{category_id}/upload', [GeneralController::class, 'upload'])->name('upload');
+        Route::put('/{categoryDetail_id}/update', [GeneralController::class, 'update'])->name('update');
         Route::get('/', [GeneralController::class, 'index'])->name('index');
         Route::post('/', [GeneralController::class, 'store'])->name('store');
         Route::get('/create', [GeneralController::class, 'create'])->name('create');

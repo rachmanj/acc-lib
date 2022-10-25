@@ -33,6 +33,21 @@ class GeneralController extends Controller
         return redirect()->route('general.index')->with('success', 'New General Doc Category created successfully.');
     }
 
+    public function update(Request $request, $categoryDetail_id)
+    {
+        $this->validate($request, [
+            'month' => 'required',
+        ]);
+
+        $category_detail = CategoryDetail::find($categoryDetail_id);
+        $category_detail->month = $request->month . '-01';
+        $category_detail->save();
+
+        $category = Category::find($category_detail->category_id);
+
+        return redirect()->route('general.show', $category->id)->with('success', 'General Doc Upload updated successfully.');
+    }
+
     public function show($category_id)
     {
         $category = Category::find($category_id);
@@ -42,6 +57,7 @@ class GeneralController extends Controller
     public function upload(Request $request, $catagory_id)
     {
         $this->validate($request, [
+            'month' => 'required',
             'file_upload' => 'required'
         ]);
 
@@ -52,9 +68,9 @@ class GeneralController extends Controller
         // move file to server
         $file->move(public_path('document_upload'), $filename);
 
-
         $category_detail = new CategoryDetail();
         $category_detail->category_id = $catagory_id;
+        $category_detail->month = $request->month . '-01';
         $category_detail->filename = $filename;
         $category_detail->created_by = auth()->user()->username;
         $category_detail->save();

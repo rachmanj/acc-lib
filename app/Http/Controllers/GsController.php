@@ -33,6 +33,21 @@ class GsController extends Controller
         return redirect()->route('gs.index')->with('success', 'New GS Doc Category created successfully.');
     }
 
+    public function update(Request $request, $categoryDetail_id)
+    {
+        $this->validate($request, [
+            'month' => 'required',
+        ]);
+
+        $category_detail = CategoryDetail::find($categoryDetail_id);
+        $category_detail->month = $request->month . '-01';
+        $category_detail->save();
+
+        $category = Category::find($category_detail->category_id);
+
+        return redirect()->route('gs.show', $category->id)->with('success', 'GS Doc Upload updated successfully.');
+    }
+
     public function show($category_id)
     {
         // return $category_id;
@@ -40,7 +55,7 @@ class GsController extends Controller
         return view('gs.details.index', compact('category'));
     }
 
-    public function upload(Request $request, $catagory_id)
+    public function upload(Request $request, $category_id)
     {
         $this->validate($request, [
             'month' => 'required',
@@ -54,15 +69,14 @@ class GsController extends Controller
         // move file to server
         $file->move(public_path('document_upload'), $filename);
 
-
         $category_detail = new CategoryDetail();
-        $category_detail->category_id = $catagory_id;
+        $category_detail->category_id = $category_id;
         $category_detail->month = $request->month . '-01';
         $category_detail->filename = $filename;
         $category_detail->created_by = auth()->user()->username;
         $category_detail->save();
 
-        return redirect()->route('gs.show', $catagory_id)->with('success', 'Document updated successfully');
+        return redirect()->route('gs.show', $category_id)->with('success', 'Document updated successfully');
     }
 
     public function destroy($id)
