@@ -29,6 +29,7 @@
           <tr>
             <th>No</th>
             <th>Category Name</th>
+            <th>Doc Count</th>
             <th>CreatedBy</th>
             <th>action</th>
           </tr>
@@ -69,10 +70,17 @@
         columns: [
           {data: 'DT_RowIndex', orderable: false, searchable: false},
           {data: 'name'},
+          {data: 'doc_count'},
           {data: 'created_by'},
           {data: 'action'},
         ],
         fixedHeader: true,
+        columnDefs: [
+          {
+            "targets": [2],
+            "className": "text-right"
+          }
+        ]
       })
     });
   </script>

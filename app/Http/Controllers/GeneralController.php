@@ -76,6 +76,14 @@ class GeneralController extends Controller
 
         return datatables()->of($general_items)
             ->addIndexColumn()
+            ->addColumn('doc_count', function ($gs_item) {
+                $doc_count = CategoryDetail::where('category_id', $gs_item->id)->count();
+                if ($doc_count > 0) {
+                    return $doc_count;
+                } else {
+                    return '0';
+                }
+            })
             ->addColumn('action', 'general.action')
             ->rawColumns(['action'])
             ->toJson();
