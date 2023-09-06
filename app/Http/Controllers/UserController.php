@@ -115,6 +115,12 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User deactivated successfully');
     }
 
+    public function getUserRoles()
+    {
+        $roles = User::find(auth()->user()->id)->getRoleNames()->toArray();
+        return $roles;
+    }
+
     public function data()
     {
         $users = User::all();

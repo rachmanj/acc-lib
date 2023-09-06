@@ -61,5 +61,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{category_id}', [GeneralController::class, 'show'])->name('show');
         Route::delete('/{id}', [GeneralController::class, 'destroy'])->name('detail.destroy');
         Route::get('/{id}/preview', [GeneralController::class, 'preview'])->name('detail.preview');
+        Route::delete('/{category_id}/delete', [GeneralController::class, 'destroy_category'])->name('destroy_category');
     });
 });

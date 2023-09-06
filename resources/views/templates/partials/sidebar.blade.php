@@ -31,10 +31,10 @@
           {{-- @include('templates.partials.menu.categories') --}}
           
   
-          {{-- @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin') --}}
-            <li class="nav-header">ADMIN</li>
+          @hasanyrole('superadmin|admin|user')
+          <li class="nav-header">ADMIN</li>
             @include('templates.partials.menu.users')
-          {{-- @endif --}}
+          @endhasanyrole
           
         </ul>
       </nav>

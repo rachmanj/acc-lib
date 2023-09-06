@@ -10,6 +10,10 @@ class GeneralController extends Controller
 {
     public function index()
     {
+        // $roles = app(UserController::class)->getUserRoles();
+        // return $roles;
+        // die;
+
         return view('general.index');
     }
 
@@ -84,6 +88,14 @@ class GeneralController extends Controller
         $category_detail->delete();
 
         return redirect()->route('general.show', $category_detail->category_id)->with('success', 'Document deleted successfully');
+    }
+
+    public function destroy_category($category_id)
+    {
+        $category = Category::find($category_id);
+        $category->delete();
+
+        return redirect()->route('general.index')->with('success', 'Category deleted successfully');
     }
 
     public function data()

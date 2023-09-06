@@ -1,7 +1,7 @@
 <a href="{{ asset('document_upload/'. $model->filename) }}" class="btn btn-xs btn-success" target="_blank">preview</a>
 <form action="{{ route('general.detail.destroy', $model->id) }}" method="POST">
     @csrf @method('DELETE')
-      @hasanyrole('admin')
+      @hasanyrole('superadmin|admin')
       <button type="submit" onclick="return confirm('Yakin nih mau menghapus data? Ga bisa dibalikin lagi lho datanya..')" class="btn btn-xs btn-danger">delete</button>
       @endhasanyrole
 </form>
